@@ -3,6 +3,7 @@ from views.authview import AuthView
 from my_firebase_client import FirebaseClient
 
 class ViewStack:
+  """Class that implement a secured stack for only ViewInterface instances."""
   def __init__(self, firstView: ViewInterface=None):
     self._viewStack = []
     if firstView != None:
@@ -26,6 +27,7 @@ class ViewStack:
 
 
 def main():
+  """ViewStack based algorithm."""
   try:
     client = FirebaseClient()
     viewStack = ViewStack(AuthView(client))

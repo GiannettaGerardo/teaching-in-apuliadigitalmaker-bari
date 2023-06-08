@@ -3,6 +3,7 @@ import time
 import json as jsonModule
 
 class Token:
+  """Represents and manage a Firebase Reponse Token."""
   def __init__(self, json):
     self.creationTime = int(time.time())
     self.expiresIn = int(json.get("expiresIn"))
@@ -20,10 +21,12 @@ class Token:
     self.email = email
 
   def isUsable(self) -> bool:
+    """The token is usable if there is more than a minute left until expiration."""
     return ((self.creationTime + self.expiresIn) - int(time.time())) > 60
 
 
 class FirebaseClient:
+  """Represents a simple Firebase client that use the Firebase REST API."""
   def __init__(self):
     with open(".\\configuration\\config.json") as jsonConfigFile:
       self.firebaseConfig = jsonModule.load(jsonConfigFile)

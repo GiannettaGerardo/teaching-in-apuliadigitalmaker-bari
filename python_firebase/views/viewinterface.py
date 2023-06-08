@@ -2,6 +2,7 @@ import abc
 from collections.abc import Callable
 
 class ViewInterface(metaclass=abc.ABCMeta):
+  """Interface for the views."""
   @classmethod
   def __subclasshook__(cls, subclass):
     return (hasattr(subclass, 'render') and 
@@ -9,6 +10,7 @@ class ViewInterface(metaclass=abc.ABCMeta):
   
   def inputLoop(printMenu: Callable, parseInput: Callable):
     """
+    Implement the main loop for all the input parsing.\n
     ``parseInput`` is a function and must return:
     - 0 : means return 'Back'
     - None : means 'do nothing'

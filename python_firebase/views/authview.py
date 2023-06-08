@@ -27,6 +27,7 @@ class AuthView:
         return MainView(self._client)
       
   def _sign(self, clientFunction, errorMessage) -> bool:
+    """Generic function to implement both signUp and signIn."""
     print("Enter email: ", end="")
     email = input()
     print("Enter password: ", end="")
