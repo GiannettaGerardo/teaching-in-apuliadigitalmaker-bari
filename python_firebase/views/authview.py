@@ -1,3 +1,4 @@
+import os
 from firebase_client import FirebaseClient
 from views.viewinterface import ViewInterface
 from views.mainview import MainView
@@ -8,8 +9,9 @@ class AuthView:
     self._client = client
 
   def printMenu(self):
+    #os.system("cls")
     if self._client.isLoggedIn():
-      print("    Welcome " + self._client.getUserId())
+      print("    Welcome " + self._client.getEmail())
       print(" ||----------------------------------------------------||")
       print(" ||                Authentication menù                 ||")
       print(" || Enter a number to choose an action.                ||")

@@ -90,5 +90,5 @@ class FirebaseClient:
   def isLoggedIn(self) -> bool:
     return self.token != None 
   
-  def getUserId(self) -> str:
-    return self.token.localId
+  def getEmail(self) -> str:
+    return self.token.email
