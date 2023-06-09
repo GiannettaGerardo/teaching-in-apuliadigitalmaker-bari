@@ -4,21 +4,23 @@ import json as jsonModule
 
 class Token:
   """Represents and manage a Firebase Reponse Token."""
-  def __init__(self, json):
-    self.creationTime = int(time.time())
-    self.expiresIn = int(json.get("expiresIn"))
-    self.idToken = json.get("idToken")
-    self.email = json.get("email")
-    self.refreshToken = json.get("refreshToken")
-    self.localId = json.get("localId")
-
-  def __init__(self, json, email: str):
-    self.creationTime = int(time.time())
-    self.expiresIn = int(json.get("expires_in"))
-    self.idToken = json.get("id_token")
-    self.refreshToken = json.get("refresh_token")
-    self.localId = json.get("user_id")
-    self.email = email
+  def __init__(self, json, email: str=None):
+    """With email is for refresh token endpoint, without
+       is for signUp and signIn endpoint."""
+    if email == None:
+      self.creationTime = int(time.time())
+      self.expiresIn = int(json.get("expiresIn"))
+      self.idToken = json.get("idToken")
+      self.email = json.get("email")
+      self.refreshToken = json.get("refreshToken")
+      self.localId = json.get("localId")
+    else:
+      self.creationTime = int(time.time())
+      self.expiresIn = int(json.get("expires_in"))
+      self.idToken = json.get("id_token")
+      self.refreshToken = json.get("refresh_token")
+      self.localId = json.get("user_id")
+      self.email = email
 
   def isUsable(self) -> bool:
     """The token is usable if there is more than a minute left until expiration."""
@@ -27,8 +29,8 @@ class Token:
 
 class FirebaseClient:
   """Represents a simple Firebase client that use the Firebase REST API."""
-  def __init__(self):
-    with open(".\\configuration\\config.json") as jsonConfigFile:
+  def __init__(self, configFile: str):
+    with open(configFile) as jsonConfigFile:
       self.firebaseConfig = jsonModule.load(jsonConfigFile)
     self.token = None
 
@@ -87,3 +89,6 @@ class FirebaseClient:
   
   def isLoggedIn(self) -> bool:
     return self.token != None 
+  
+  def getUserId(self) -> str:
+    return self.token.localId

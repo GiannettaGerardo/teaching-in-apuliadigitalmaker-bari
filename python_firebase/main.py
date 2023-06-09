@@ -1,6 +1,6 @@
 from views.viewinterface import ViewInterface
 from views.authview import AuthView
-from my_firebase_client import FirebaseClient
+from firebase_client import FirebaseClient
 
 class ViewStack:
   """Class that implement a secured stack for only ViewInterface instances."""
@@ -29,7 +29,7 @@ class ViewStack:
 def main():
   """ViewStack based algorithm."""
   try:
-    client = FirebaseClient()
+    client = FirebaseClient(".\\configuration\\config.json")
     viewStack = ViewStack(AuthView(client))
     while not viewStack.isEmpty():
       currentView = viewStack.get()

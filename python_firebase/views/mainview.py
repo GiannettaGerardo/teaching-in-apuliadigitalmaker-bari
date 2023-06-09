@@ -1,4 +1,4 @@
-from my_firebase_client import FirebaseClient
+from firebase_client import FirebaseClient
 from views.viewinterface import ViewInterface
 
 class MainView:
@@ -6,7 +6,7 @@ class MainView:
     self._client = client
 
   def printMenu(self):
-    print("    Welcome")
+    print("    Welcome " + self._client.getUserId())
     print(" ||----------------------------------------------------||")
     print(" ||                        Menù                        ||")
     print(" || Enter a number to choose an action.                ||")
