@@ -1,4 +1,12 @@
 # teaching-in-apuliadigitalmaker-bari
+
+Collection of projects created to teach to the Apulia Digital Maker Cybersecurity course in Bari (Puglia - Italy).
+
+### Topics covered:
+- Clouds
+- OAuth2 + OpenID Connect
+- Software development
+
 ## 1. Orders CRUD
 ### Functional Items:
 - Authentication:
