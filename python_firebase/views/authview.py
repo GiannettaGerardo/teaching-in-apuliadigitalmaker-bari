@@ -1,4 +1,3 @@
-import os
 from firebase_client import FirebaseClient
 from views.viewinterface import ViewInterface
 from views.mainview import MainView

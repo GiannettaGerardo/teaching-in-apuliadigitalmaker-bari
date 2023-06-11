@@ -3,6 +3,7 @@ from firebase_client import FirebaseClient
 import json as jsonModule
 
 class Controller:
+  """Controller for MainView"""
   def __init__(self, client: FirebaseClient):
     self._client = client
     
@@ -29,6 +30,8 @@ class Controller:
     return self.daysOfTheWeek[number - 1]
   
   def getTable(self) -> list[str]:
+    """Returns the complete table of days of the current month 
+    and orders for each day."""
     responseDict = self._getOrderOfThisMonth()
     daysIndex = 1
     result = ["Current month-year: "+str(self.cMonth)+"-"+str(self.cYear)]
@@ -48,6 +51,7 @@ class Controller:
     return result
   
   def insertOrder(self, data: dict, day: int) -> None:
+    """Isert new order 'data' in the database in a specific 'day'."""
     databaseCursor = str(self.cYear)+"/"+str(self.cMonth)+"/"+str(day)
     self._client.post(data, databaseCursor)
 
@@ -56,6 +60,7 @@ class Controller:
     return self._client.get(databaseCursor)
   
   def deleteOrder(self, day: int, orderId: str):
+    """Delete the order 'orderId' from the database in a specific 'day'"""
     databaseCursor = str(self.cYear)+"/"+str(self.cMonth)+"/"+str(day)
     if orderId != "":
       databaseCursor = databaseCursor+"/"+orderId
