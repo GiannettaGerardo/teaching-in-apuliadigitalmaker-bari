@@ -9,7 +9,6 @@ class AuthView:
     self._client = client
 
   def printMenu(self):
-    #os.system("cls")
     if self._client.isLoggedIn():
       print("    Welcome " + self._client.getEmail())
       print(" ||----------------------------------------------------||")

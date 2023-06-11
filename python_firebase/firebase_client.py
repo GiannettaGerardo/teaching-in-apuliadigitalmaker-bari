@@ -49,7 +49,7 @@ class FirebaseClient:
     response = requests.post(url, headers=headers, json=data)
     if response.status_code != 200:
       self.token = None
-      raise Exception("Error: response returned " + response.status_code + " with body: \n" + response.json())
+      raise Exception("Error: response returned " + str(response.status_code) + " with body: \n" + response.json())
     self.token = Token(response.json(), self.token.email)
 
 
@@ -65,7 +65,7 @@ class FirebaseClient:
     
     if response.status_code != 200:
       self.token = None
-      raise Exception("Error: response returned " + response.status_code + " with body: \n" + response.json())
+      raise Exception("Error: response returned " + str(response.status_code) + " with body: \n" + response.json())
     self.token = Token(response.json())
 
     
@@ -81,7 +81,7 @@ class FirebaseClient:
     
     if response.status_code != 200:
       self.token = None
-      raise Exception("Error: response returned " + response.status_code + " with body: \n" + response.json())
+      raise Exception("Error: response returned " + str(response.status_code) + " with body: \n" + response.json())
     self.token = Token(response.json())
 
   def logout(self):
@@ -92,3 +92,32 @@ class FirebaseClient:
   
   def getEmail(self) -> str:
     return self.token.email
+  
+  def _prepareQuery(self, databaseCursor: str) -> str:
+    if not self.isLoggedIn():
+      raise Exception("Put error: User not logged in...")
+    self._checkRefreshToken()
+    url = self.firebaseConfig["databaseUrl"] + "users/" + self.token.localId + "/" 
+    return url + databaseCursor + ".json?auth=" + self.token.idToken
+  
+  def post(self, data: dict, databaseCursor: str) -> dict:
+    url = self._prepareQuery(databaseCursor)
+    headers = {"content-type": "application/json; charset=UTF-8"}
+    response = requests.post(url, headers=headers, json=data)
+    if response.status_code != 200:
+      raise Exception("Post return " + str(response.status_code))
+    return response.json()
+  
+  def get(self, databaseCursor: str) -> dict:
+    url = self._prepareQuery(databaseCursor)
+    headers = {"content-type": "application/json; charset=UTF-8"}
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+      raise Exception("Get return " + str(response.status_code))
+    return response.json()
+  
+  def delete(self, databaseCursor: str) -> None:
+    url = self._prepareQuery(databaseCursor)
+    response = requests.delete(url)
+    if response.status_code != 200:
+      raise Exception("Delete return " + str(response.status_code))
