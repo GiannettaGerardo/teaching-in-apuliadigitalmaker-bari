@@ -1,0 +1,35 @@
+server:
+  port: 8000
+
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - OPTIONS
+      routes:
+        - id: prova
+          uri: http://localhost:49152
+          predicates:
+            - Path=/api/v1/get-prove
+            - Method=GET, OPTIONS
+  security:
+    oauth2:
+      client:
+        registration:
+          gateway:
+            provider: keycloak
+            client-id: api_gateway_client
+            client-secret: noxLtR80tVZ5kiISeNNn3xGwXivMbDsf
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8000/login/oauth2/code/{registrationId}"
+            scope: openid, prova.read
+        provider:
+          keycloak:
+            issuer-uri: http://127.0.0.1:8080/auth/realms/its_bari_realm

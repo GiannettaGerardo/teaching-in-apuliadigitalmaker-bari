@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>its.bari</groupId>
+    <artifactId>oauth2-authorization-code-flow</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>oauth2-authorization-code-flow</name>
+    <description>OAuth2 Authorization Code flow</description>
+    <properties>
+        <java.version>11</java.version>
+    </properties>
+    <modules>
+        <module>apigateway</module>
+        <module>resourceserver</module>
+    </modules>
+</project>
